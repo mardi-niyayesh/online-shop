@@ -1,4 +1,5 @@
 import { AppModule } from '@app/app/app.module';
+import dataSource from '@config/data-source';
 import { InitializeSwagger } from '@config/swagger.config';
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
@@ -14,6 +15,8 @@ async function bootstrap() {
       transform: true,
     }),
   );
+
+  await dataSource.initialize();
 
   app.setGlobalPrefix('api');
 
