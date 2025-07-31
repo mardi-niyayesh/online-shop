@@ -1,7 +1,8 @@
+import { AppModule } from '@app/app/app.module';
+import { InitializeSwagger } from '@config/swagger.config';
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
-import { AppModule } from './modules/app/app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -15,6 +16,8 @@ async function bootstrap() {
   );
 
   app.setGlobalPrefix('api');
+
+  InitializeSwagger(app);
 
   await app.listen(process.env.PORT ?? 3000);
 }
