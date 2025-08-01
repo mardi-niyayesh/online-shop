@@ -16,6 +16,8 @@ async function bootstrap() {
     }),
   );
 
+  app.enableCors();
+
   await dataSource.initialize();
 
   app.setGlobalPrefix('api');
