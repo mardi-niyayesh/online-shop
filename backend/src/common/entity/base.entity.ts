@@ -5,7 +5,7 @@ import {
 } from 'typeorm';
 
 export abstract class BaseAppEntity {
-  @PrimaryGeneratedColumn({ type: 'int8' })
+  @PrimaryGeneratedColumn({ type: 'int' })
   id: number;
 
   @CreateDateColumn()
