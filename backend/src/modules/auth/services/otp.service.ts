@@ -27,7 +27,9 @@ export class OtpService {
   async validateOtp(phone: string, otp: string): Promise<Otp | null> {
     const otpEntity = await this.otpRepository.findOne({ where: { phone } });
 
-    if (!otp) throw new BadRequestException('No otp for this user');
+    if (!otpEntity) {
+      throw new BadRequestException('No otp for this user');
+    }
 
     return otpEntity;
   }
@@ -41,7 +43,7 @@ export class OtpService {
     if (otp) {
       const expireResult = this.CheckExpireOtp(otp);
 
-      if (!expireResult)
+      if (expireResult)
         throw new HttpException(
           'You can get otp every 2 min',
           HttpStatus.TOO_MANY_REQUESTS,
