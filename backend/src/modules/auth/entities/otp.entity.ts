@@ -3,10 +3,10 @@ import { BeforeInsert, Column, Entity } from 'typeorm';
 
 @Entity()
 export class Otp extends BaseAppEntity {
-  @Column({ type: 'varchar', nullable: false })
+  @Column({ nullable: false })
   phone: string;
 
-  @Column({ type: 'varchar', nullable: false })
+  @Column({ nullable: false })
   code: string;
 
   @Column({ type: 'timestamp', nullable: false })
