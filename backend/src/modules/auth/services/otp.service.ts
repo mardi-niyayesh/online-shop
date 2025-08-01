@@ -43,7 +43,7 @@ export class OtpService {
 
       if (!expireResult)
         throw new HttpException(
-          'You can get otp every',
+          'You can get otp every 2 min',
           HttpStatus.TOO_MANY_REQUESTS,
         );
     }
