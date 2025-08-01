@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { randomInt } from 'crypto';
-import { Repository } from 'typeorm';
+import { DeleteResult, Repository } from 'typeorm';
 import { Otp } from '../entities/otp.entity';
 
 @Injectable()
@@ -47,5 +47,12 @@ export class OtpService {
           HttpStatus.TOO_MANY_REQUESTS,
         );
     }
+  }
+
+  async removeOtp(otp: Otp): Promise<DeleteResult> {
+    return await this.otpRepository.delete({
+      phone: otp.phone,
+      code: otp.code,
+    });
   }
 }
