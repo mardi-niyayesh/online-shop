@@ -13,6 +13,6 @@ export class User extends BaseAppEntity {
   phone: string;
 
   //Feature
-  @Column()
+  @Column({ nullable: true })
   roleId: string;
 }
