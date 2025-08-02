@@ -10,4 +10,12 @@ export class VerifyOtpDto {
   @ApiProperty({ example: '09921810208' })
   @IsPhoneNumber('IR')
   phone: string;
+
+  @ApiProperty({ example: 'firstname' })
+  @IsString()
+  firstname: string;
+
+  @ApiProperty({ example: 'lastname' })
+  @IsString()
+  lastname: string;
 }

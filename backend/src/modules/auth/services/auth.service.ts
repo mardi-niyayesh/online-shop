@@ -57,7 +57,11 @@ export class AuthService {
         }),
       };
 
-    const newUser = this.userRepository.create({ phone: dto.phone });
+    const newUser = this.userRepository.create({
+      phone: dto.phone,
+      firstname: dto.firstname,
+      lastname: dto.lastname,
+    });
     await this.userRepository.save(newUser);
 
     return {
