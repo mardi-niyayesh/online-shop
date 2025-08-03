@@ -12,6 +12,9 @@ export class User extends BaseAppEntity {
   @Column({ unique: true })
   phone: string;
 
+  @Column({ default: false })
+  isVerified: boolean;
+
   //Feature
   @Column({ nullable: true })
   roleId: string;
