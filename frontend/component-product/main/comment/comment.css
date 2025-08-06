@@ -1,0 +1,41 @@
+
+.comment-box{
+display: flex;
+align-items: center;
+justify-content: center;
+width:949px ;
+height:400px ;
+gap: 2rem;
+border: 1px solid #DBDBDB;
+box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+padding: 2rem;
+}
+
+.text-comment{
+    color: var(--color-484848);
+    line-height: 25px;
+    margin-bottom: 2rem;
+}
+.box-star-title{
+
+}
+.name-text{
+    color: var(--color-484848);
+    font-size: 25px;
+    font-weight: bold;
+}
+.text-title-coment{
+    text-align: center;
+    color: var(--color-484848);
+    margin-bottom: 2rem;
+}
+.text-p-coment{
+    color: var(--color-8A8A8A);
+    text-align: center;
+}
+.main-left-icon{
+    display: flex;
+    right: 0;
+    top: 50%;
+    position: absolute;
+}

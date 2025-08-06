@@ -1,0 +1,13 @@
+
+.instagram-title{
+    color: var(--color-484848);
+    font-weight: bold;
+    font-size: 25px;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+.instagram-des{
+    color: var(--color-8A8A8A);
+    text-align: center;
+     margin-bottom: 2rem;
+}

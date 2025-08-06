@@ -1,0 +1,38 @@
+
+
+.main-componenet-left,.main-left-collection-img,.container-hour,.main-left-icon{
+      display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.main-right-title{
+    color: var(--color-484848);
+    font-size: 40px;
+    margin-bottom: 2rem;
+}
+.main-right-des{
+    color: var(--color-8A8A8A);
+    line-height: 25px;
+     margin-bottom: 2rem;
+     max-width: 350px;
+     
+}
+.main-right-txt-hour{
+    color: var(--color-484848);
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 2rem;
+}
+.time-value{
+    margin-bottom: 0.5rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    border: 1px solid #DBDBDB;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+}

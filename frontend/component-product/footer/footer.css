@@ -1,0 +1,32 @@
+
+.footer-center-title{
+    color: var(--color-484848);
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 2rem;
+
+}
+.footer-center-des,.footer-center-email{
+    color: var(--color-8A8A8A);
+    line-height: 25px;
+    margin-bottom: 2rem;
+
+}
+
+.drow-footer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 0.5px solid var( --color-767676);
+    padding: 2rem;
+}
+.drow-footer-box ul{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    list-style-type: none;
+    color: var(--color-484848);
+    font-size: 18px;
+    font-weight: bold;
+}
