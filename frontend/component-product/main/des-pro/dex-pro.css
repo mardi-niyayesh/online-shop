@@ -1,0 +1,51 @@
+/* style-description-top */
+
+.description{
+    margin-top: 2rem;
+}
+.container-description,.description-down,.box-info{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-bottom: 2rem;
+}
+.container-description-right{
+    background-color: var(--color-DADADA);
+    padding: 2rem;
+}
+.des-right-woman{
+    color: var(--color-767676);
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+}
+.des-right-title{
+    color: var(--color-484848);
+    font-weight: bold;
+    font-size: 35px;
+    margin-bottom: 2rem;
+}
+.descrioton-rig p{
+    color: var(--color-767676);
+    margin-bottom: 2rem;
+}
+.container-description-left img{
+    width: 570px;
+}
+.box-size{
+display: flex;
+align-items: center;
+gap: 0.5rem;
+margin-bottom: 2rem;
+}
+.des-right-price{
+    color: var(--color-000000);
+    font-weight: bold;
+    font-size:25px;
+    margin-bottom: 2rem;
+}
+
+/* style-description-down */
+
+.box-info{
+    gap: 1rem;
+}
