@@ -1,4 +1,6 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { PaginationOptions } from '@common/decorators/pagination-options.decorator';
+import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Paginate, PaginateQuery } from 'nestjs-paginate';
 import { CreateCategoryDto } from '../dto/category/create-category.dto';
 import { ProductCategoryService } from '../service/product-category.service';
 
@@ -9,5 +11,13 @@ export class ProductCategoryController {
   @Post()
   async create(@Body() dto: CreateCategoryDto) {
     return await this.categoryService.create(dto);
+  }
+
+  @Get()
+  @PaginationOptions({
+    sortOptions: [{ example: 'createdAt:DESC' }],
+  })
+  async findAll(@Paginate() query: PaginateQuery) {
+    return await this.categoryService.findAll(query);
   }
 }

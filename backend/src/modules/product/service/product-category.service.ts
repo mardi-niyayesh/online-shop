@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { paginate, Paginated, PaginateQuery } from 'nestjs-paginate';
 import { Repository } from 'typeorm';
 import { CreateCategoryDto } from '../dto/category/create-category.dto';
 import { ProductCategory } from '../entities/product-category.entity';
@@ -15,5 +16,13 @@ export class ProductCategoryService {
     const newCategory = this.categoryRepository.create(dto);
 
     return await this.categoryRepository.save(newCategory);
+  }
+
+  async findAll(query: PaginateQuery): Promise<Paginated<ProductCategory>> {
+    return paginate(query, this.categoryRepository, {
+      sortableColumns: ['createdAt', 'updatedAt'],
+      defaultSortBy: [['createdAt', 'DESC']],
+      select: ['id', 'createdAt', 'updatedAt', 'title', 'description'],
+    });
   }
 }
