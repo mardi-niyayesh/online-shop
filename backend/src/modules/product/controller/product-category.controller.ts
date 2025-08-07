@@ -3,6 +3,7 @@ import { AtLeastOneFieldPipe } from '@common/pipe/at-least-one.pipe';
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   ParseIntPipe,
@@ -46,5 +47,10 @@ export class ProductCategoryController {
     dto: UpdateCategoryDto,
   ) {
     return await this.categoryService.update(id, dto);
+  }
+
+  @Delete(':id')
+  async remove(@Param('id', ParseIntPipe) id: number) {
+    return await this.categoryService.remove(id);
   }
 }

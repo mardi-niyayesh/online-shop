@@ -57,4 +57,12 @@ export class ProductCategoryService {
 
     return await this.categoryRepository.save(category);
   }
+
+  async remove(id: number) {
+    const { affected } = await this.categoryRepository.delete({ id });
+
+    if (!affected) throw new NotFoundException();
+
+    return { success: !!affected };
+  }
 }
