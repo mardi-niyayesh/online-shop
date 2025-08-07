@@ -1,8 +1,13 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { paginate, Paginated, PaginateQuery } from 'nestjs-paginate';
 import { Repository } from 'typeorm';
 import { CreateCategoryDto } from '../dto/category/create-category.dto';
+import { UpdateCategoryDto } from '../dto/category/update-category.dto';
 import { ProductCategory } from '../entities/product-category.entity';
 
 @Injectable()
@@ -32,5 +37,24 @@ export class ProductCategoryService {
     if (!category) throw new NotFoundException();
 
     return category;
+  }
+
+  async update(id: number, dto: UpdateCategoryDto): Promise<ProductCategory> {
+    const category = await this.categoryRepository.findOne({ where: { id } });
+
+    if (!category) throw new NotFoundException();
+
+    // For check is unique or not
+    const isUniqueTitle = await this.categoryRepository.findOne({
+      where: { title: dto.title },
+    });
+
+    if (isUniqueTitle && isUniqueTitle.id !== id)
+      throw new ConflictException('There is another category by this title');
+
+    category.title = dto.title;
+    category.description = dto.description;
+
+    return await this.categoryRepository.save(category);
   }
 }
