@@ -7,7 +7,9 @@ import {
   ParseIntPipe,
   Post,
 } from '@nestjs/common';
+import { ApiOkResponse } from '@nestjs/swagger';
 import { Paginate, PaginateQuery } from 'nestjs-paginate';
+import { CategoryPaginateResponse } from '../dto/category/category-paginate-response.dto';
 import { CreateCategoryDto } from '../dto/category/create-category.dto';
 import { ProductCategoryService } from '../service/product-category.service';
 
@@ -24,6 +26,7 @@ export class ProductCategoryController {
   @PaginationOptions({
     sortOptions: [{ example: 'createdAt:DESC' }],
   })
+  @ApiOkResponse({ type: CategoryPaginateResponse })
   async findAll(@Paginate() query: PaginateQuery) {
     return await this.categoryService.findAll(query);
   }
