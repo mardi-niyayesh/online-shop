@@ -21,7 +21,6 @@ export function PaginationOptions(options: PaginateOptionsInput) {
   return applyDecorators(
     ApiQuery({ name: 'page', required: false, type: Number }),
     ApiQuery({ name: 'limit', required: false, type: Number }),
-    ApiQuery({ name: 'search', required: false, type: String }),
 
     ...(options.filterOptions ?? []).map((object) =>
       ApiQuery({
