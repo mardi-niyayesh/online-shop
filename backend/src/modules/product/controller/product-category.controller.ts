@@ -1,5 +1,12 @@
 import { PaginationOptions } from '@common/decorators/pagination-options.decorator';
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+} from '@nestjs/common';
 import { Paginate, PaginateQuery } from 'nestjs-paginate';
 import { CreateCategoryDto } from '../dto/category/create-category.dto';
 import { ProductCategoryService } from '../service/product-category.service';
@@ -19,5 +26,10 @@ export class ProductCategoryController {
   })
   async findAll(@Paginate() query: PaginateQuery) {
     return await this.categoryService.findAll(query);
+  }
+
+  @Get(':id')
+  async findOne(@Param('id', ParseIntPipe) id: number) {
+    return await this.categoryService.findOne(id);
   }
 }

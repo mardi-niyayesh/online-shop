@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { paginate, Paginated, PaginateQuery } from 'nestjs-paginate';
 import { Repository } from 'typeorm';
@@ -24,5 +24,13 @@ export class ProductCategoryService {
       defaultSortBy: [['createdAt', 'DESC']],
       select: ['id', 'createdAt', 'updatedAt', 'title', 'description'],
     });
+  }
+
+  async findOne(id: number): Promise<ProductCategory> {
+    const category = await this.categoryRepository.findOne({ where: { id } });
+
+    if (!category) throw new NotFoundException();
+
+    return category;
   }
 }
