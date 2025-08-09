@@ -29,7 +29,7 @@ export class S3Service {
     });
   }
 
-  async uploadFile(file: Express.Multer.File, folder: string = 'barbery') {
+  async uploadFile(file: Express.Multer.File, folder: string = 'online-shop') {
     const ext = file.originalname.split('.').pop();
     const uniqueName = `${uuidv4()}.${ext}`;
     const key = folder ? `${folder}/${uniqueName}` : uniqueName;
