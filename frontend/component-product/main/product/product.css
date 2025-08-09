@@ -21,8 +21,37 @@
     align-items: center;
     justify-content: center;
 }
+.main-product{
+    margin-top: 2rem;
+}
 
+/* Responsive */
 
+@media(max-width:800px){
+    .main-product-title h1{
+     font-size: 45px;
+    }
+    .main-product-des{
+        text-align: center;
+        font-size: 20px;
+        line-height: 35px;
+        max-width: 100%;
+    }
+    
+   .container-btn-product{
+  display: grid;
+  grid-template-columns: repeat(2, 300px);
+  gap: 10px;
+  margin: 0 auto;
+   }
+   .main-box-product{
+    margin: 0 auto;
+   }
+   .product{
+    flex-direction: column;
+    gap: 2rem
+   }
+}
 
 
 
