@@ -19,6 +19,9 @@ export class ProductAttribute extends BaseAppEntity {
   @Column({ nullable: true })
   design: string;
 
+  @Column()
+  stock: number;
+
   @ManyToOne(() => Product, (product) => product.attributes, {
     onDelete: 'CASCADE',
   })

@@ -16,9 +16,6 @@ export class Product extends BaseAppEntity {
   @Column('decimal', { precision: 10, scale: 2 })
   price: number;
 
-  @Column({ default: 0 })
-  stock: number;
-
   @Column({ nullable: true })
   image: string;
 
