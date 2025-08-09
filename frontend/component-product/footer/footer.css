@@ -30,3 +30,27 @@
     font-size: 18px;
     font-weight: bold;
 }
+
+/* Responsive */
+
+@media(max-width:800px){
+    .footer-left img{
+        display: none;
+    }
+    .footer-right img{
+        width: 250px;
+    }
+    .footer-center-title{
+        font-size: 35px;
+    }
+    .drow-footer-logo img{
+        width: 80px;
+    }
+    .drow-footer {
+        gap: 1.5rem;
+    }
+    .drow-footer-box ul li{
+        font-size: 15px;
+    }
+
+}
