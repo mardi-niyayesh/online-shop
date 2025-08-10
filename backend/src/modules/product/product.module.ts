@@ -1,5 +1,7 @@
+import { JwtAppService } from '@app/auth/services/jwt.service';
 import { S3Service } from '@common/services/s3.service';
 import { Module } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ProductCategoryController } from './controller/product-category.controller';
 import { ProductController } from './controller/product.controller';
@@ -22,6 +24,12 @@ import { ProductService } from './service/product.service';
     ]),
   ],
   controllers: [ProductCategoryController, ProductController],
-  providers: [ProductCategoryService, ProductService, S3Service],
+  providers: [
+    ProductCategoryService,
+    ProductService,
+    S3Service,
+    JwtAppService,
+    JwtService,
+  ],
 })
 export class ProductModule {}
