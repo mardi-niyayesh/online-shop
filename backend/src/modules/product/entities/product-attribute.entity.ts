@@ -11,7 +11,7 @@ export class ProductAttribute extends BaseAppEntity {
   color: string;
 
   @Column({ nullable: true })
-  heigth: number;
+  height: number;
 
   @Column({ nullable: true })
   mentality: string;
