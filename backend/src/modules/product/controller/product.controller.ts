@@ -3,6 +3,7 @@ import { imageFileFilter } from '@common/validators/files/image-validator';
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   ParseIntPipe,
@@ -66,4 +67,9 @@ export class ProductController {
   // ) {
   //   return await this.productService.update(id, dto, image);
   // }
+
+  @Delete(':id')
+  async remove(@Param('id', ParseIntPipe) id: number) {
+    return await this.productService.remove(id);
+  }
 }
