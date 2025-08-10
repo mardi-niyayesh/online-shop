@@ -4,6 +4,8 @@ import {
   Body,
   Controller,
   Get,
+  Param,
+  ParseIntPipe,
   Post,
   UploadedFile,
   UseInterceptors,
@@ -46,5 +48,10 @@ export class ProductController {
   @ApiOkResponse({ type: PaginateProductResponse })
   async findAll(@Paginate() query: PaginateQuery) {
     return await this.productService.findAll(query);
+  }
+
+  @Get(':id')
+  async findOne(@Param('id', ParseIntPipe) id: number) {
+    return await this.productService.findOne(id);
   }
 }

@@ -1,5 +1,5 @@
 import { S3Service } from '@common/services/s3.service';
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import {
   FilterOperator,
@@ -75,5 +75,20 @@ export class ProductService {
         'attributes.design': [FilterOperator.EQ],
       },
     });
+  }
+
+  async findOne(id: number): Promise<DeepPartial<Product>> {
+    const product = await this.productRepository.findOne({
+      where: { id },
+      relations: {
+        attributes: true,
+        rates: true,
+        category: true,
+      },
+    });
+
+    if (!product) throw new NotFoundException();
+
+    return product;
   }
 }
