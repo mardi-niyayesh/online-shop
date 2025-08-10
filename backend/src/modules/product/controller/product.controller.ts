@@ -1,4 +1,7 @@
+import { Auth } from '@common/decorators/auth.decorator';
 import { PaginationOptions } from '@common/decorators/pagination-options.decorator';
+import { Role } from '@common/decorators/role.decorator';
+import { RoleEnum } from '@common/enum/role.enum';
 import { imageFileFilter } from '@common/validators/files/image-validator';
 import {
   Body,
@@ -19,10 +22,12 @@ import { PaginateProductResponse } from '../dto/product/paginate-product-respons
 import { ProductService } from '../service/product.service';
 
 @Controller('products')
+@Auth()
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
   @Post()
+  @Role([RoleEnum.USER])
   @ApiConsumes('multipart/form-data')
   @UseInterceptors(FileInterceptor('image', { fileFilter: imageFileFilter }))
   @ApiBody({ type: CreateProductDto })
@@ -46,17 +51,20 @@ export class ProductController {
       { field: 'attributes.design', example: '$eq:classic' },
     ],
   })
+  @Role([RoleEnum.USER])
   @ApiOkResponse({ type: PaginateProductResponse })
   async findAll(@Paginate() query: PaginateQuery) {
     return await this.productService.findAll(query);
   }
 
   @Get(':id')
+  @Role([RoleEnum.USER])
   async findOne(@Param('id', ParseIntPipe) id: number) {
     return await this.productService.findOne(id);
   }
 
   // @Put(':id')
+  // @Role([RoleEnum.USER])
   // @ApiConsumes('multipart/form-data')
   // @UseInterceptors(FileInterceptor('image', { fileFilter: imageFileFilter }))
   // async update(
@@ -67,8 +75,8 @@ export class ProductController {
   // ) {
   //   return await this.productService.update(id, dto, image);
   // }
-
   @Delete(':id')
+  @Role([RoleEnum.USER])
   async remove(@Param('id', ParseIntPipe) id: number) {
     return await this.productService.remove(id);
   }
