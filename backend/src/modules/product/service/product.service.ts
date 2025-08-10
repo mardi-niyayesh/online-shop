@@ -9,6 +9,7 @@ import {
 } from 'nestjs-paginate';
 import { DeepPartial, Repository } from 'typeorm';
 import { CreateProductDto } from '../dto/product/create-product.dto';
+import { UpdateProductDto } from '../dto/product/update-product.dto';
 import { Product } from '../entities/product.entity';
 
 @Injectable()
@@ -90,5 +91,29 @@ export class ProductService {
     if (!product) throw new NotFoundException();
 
     return product;
+  }
+
+  async update(id: number, dto: UpdateProductDto, image: Express.Multer.File) {
+    const product = await this.productRepository.findOneBy({ id });
+
+    if (!product) throw new NotFoundException('product not found');
+
+    if (image) {
+      await this.s3Service.deleteFile(product.image);
+
+      const { key } = await this.s3Service.uploadFile(image);
+
+      await this.productRepository.update({ id }, { ...dto, image: key });
+
+      return {
+        success: true,
+      };
+    } else {
+      await this.productRepository.update({ id }, { ...dto });
+
+      return {
+        success: true,
+      };
+    }
   }
 }
