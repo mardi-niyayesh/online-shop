@@ -1,5 +1,6 @@
+import { Rate } from '@app/product/entities/rate.entity';
 import { BaseAppEntity } from '@common/entity/base.entity';
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, OneToMany } from 'typeorm';
 
 @Entity()
 export class User extends BaseAppEntity {
@@ -18,4 +19,7 @@ export class User extends BaseAppEntity {
   //Feature
   @Column({ nullable: true })
   roleId: string;
+
+  @OneToMany(() => Rate, (rate) => rate.user)
+  rates: Rate[];
 }

@@ -1,4 +1,5 @@
 import { AuthModule } from '@app/auth/auth.module';
+import { ProductModule } from '@app/product/product.module';
 import { UserModule } from '@app/user/user.module';
 import { TypeOrmConfig } from '@config/typeorm.config';
 import { Module } from '@nestjs/common';
@@ -13,6 +14,7 @@ import { AppService } from './app.service';
     UserModule,
     AuthModule,
     ConfigModule.forRoot({ isGlobal: true }),
+    ProductModule,
   ],
   controllers: [AppController],
   providers: [AppService],

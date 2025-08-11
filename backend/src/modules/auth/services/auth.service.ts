@@ -1,4 +1,5 @@
 import { User } from '@app/user/entities/user.entity';
+import { RoleEnum } from '@common/enum/role.enum';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -77,7 +78,10 @@ export class AuthService {
     }
 
     return {
-      accessToken: await this.JwtService.generateAccessToken({ sub: user.id }),
+      accessToken: await this.JwtService.generateAccessToken({
+        sub: user.id,
+        role: RoleEnum.USER,
+      }),
     };
   }
 }
