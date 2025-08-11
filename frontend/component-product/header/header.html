@@ -11,55 +11,81 @@
 <body>
     
 <header class="header-componenet">
-
     <div class="container">
+
         <div class="top-bar-header">
 
             <div class="top-head">
-                
-                <div class="top-head-logo">
-                    <img src="/frontend/images/logo-header.png" alt="Logo">
-                </div>
 
+                       <li class="showmenue">
+                     <img src="https://icongr.am/feather/align-justify.svg?size=46&color=595454" alt="">
+                </li>
+              
                 <div class="top-head-menu">
                     <ul class="menu-ul">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">Deals</a></li>
-                        <li><a href="#">New Arrivals</a></li>
-                        <li><a href="#">Packages</a></li>
+                        <li class="hideonmobile"><a href="#">Home</a></li>
+                        <li class="hideonmobile"><a href="#">Packages</a></li>
+                        <li class="hideonmobile"><a href="#"> Deals</a></li>
+                        <li class="hideonmobile"><a href="#"> New Arrivals</a></li>
+                         
                     </ul>
-                    
-                       
                 </div>
 
                 <div class="button-container">
-                            <button class="sign in">sign in</button>
-                            <button class="sign up">sign up</button>
-                            
+                    <button class="sign in">sign in</button>
+                    <button class="sign up">sign up</button>
+                    <img src="/frontend/images/icon (2).png" alt="" class="sign">    
+                </div>
+             
+         
+
+                     <div class="top-head-logo">
+                    <img src="/frontend/images/logo-header.png" alt="Logo">
+                </div>
+                   
+                  <div class="top-head-menu side-bar">
+                    <ul class="menu-ul">
+                        <li onclick="hidSidbar()"><a href="#"><img src="/frontend/images/icons8-close-30.png" alt=""></a></li>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Packages</a></li>
+                        <li><a href="#"> Deals</a></li>
+                        <li><a href="#"> New Arrivals</a></li>
+                       
+                    </ul>
                 </div>
 
             </div>
 
-        <div class="main-top-head">
+           
+
+            <div class="main-top-head">
             <div class="container">
+
                 <img src="/frontend/images/left-person-head.png" alt="left-person-header" class="left-img">
+
                 <div class="main-top-center">
                     <img src="/frontend/images/center-person-top.png" alt="" class="center-person-top">
-                    <img src="/frontend/images/ULTIMATE.png" alt="">
-                    <img src="/frontend/images/SALE.png" alt="">
+                    <img src="/frontend/images/ULTIMATE.png" alt="" class="img-ULT">
+                    <img src="/frontend/images/SALE.png" alt="" class="img-SAL">
                     <p class="new-collection">NEW COLLECTION</p>
-                    <img src="" alt="">
                     <button class="sign">SHOP NOW</button>
                     <img src="/frontend/images/center-person-bot.png" alt="" class="center-person-bot">
                 </div>
+
                 <img src="/frontend/images/right-header.png" alt="" class="right-img">
                  
             </div>
              
+            </div>
+           
+
         </div>
-        </div>
+
     </div>
+
 </header>
+
+<script src="/frontend/component-product/header/header.js"></script>
 
 
 </body>

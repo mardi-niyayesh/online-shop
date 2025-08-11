@@ -18,10 +18,10 @@
 }
 
 .sign{
-    display: inline-block;
+    display:inline-block;
     height: 40px;
     color:var( --color-FFFFFF);
-    background-color:var(--color-000000);
+    background-color:var(--color-484848);
     font-size: 15px;
     border-radius: 5px;
     -webkit-border-radius: 5px;
@@ -36,8 +36,12 @@
 .container{
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
      max-width: 1220px;
     margin: 2rem auto;
 }
 
+.main-left-icon{
+    display: flex;
+    justify-content: center;
+}

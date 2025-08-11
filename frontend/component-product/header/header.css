@@ -1,17 +1,16 @@
 /* top-head */
 
-
-
-.top-head,.top-head-menu ul{
+.top-head,.top-head-menu ul,.button-container{
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
-
-
- .top-head{
-    gap: 7rem;
-} 
+.top-head{
+    background-color: white;
+    box-shadow: 3px 3px 5px rgba(0, 0,0,0.2);
+    padding: 1rem;
+     
+}
 
 .top-head-logo img{
     width: 100px;
@@ -20,19 +19,53 @@
 }
  
 .top-head-menu ul{
-    gap: 2rem;
+    width: 100%;
   
 }
+.top-head-menu li a{
+height: 100%;
+/* gap: 2rem; */
+display: flex;
+}
+
+
 .menu-ul li{
  list-style-type: none;
  text-decoration: none;
  width:100px ;
  line-height: 100%;
 }
+.menu-ul a:hover{
+    background-color: var(--color-8A8A8A);
+    display: inline-block;
+}
 .menu-ul li a{
      text-decoration: none;
      color:var(--color-484848) ;
 }
+
+.side-bar ul{
+    position: fixed ;
+    top: 0;
+    left: 0;
+    width:250px;
+    height:100vh;
+    z-index:999;
+   background-color: rgba(255, 255, 255, 0.8);
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 3rem;
+    display: none;
+    
+}
+.side-bar li{
+    width: 100%;
+}
+.side-bar a{
+    width: 100%;
+}
+
 
 /* main-top-head */
 
@@ -48,11 +81,11 @@
 .main-top-center{
 max-width: 400px;
  margin: 0 2rem;
-     display: flex;
-    flex-direction: column;
-    text-align: center;
-    align-items: center;
-    gap: 1.7rem;
+display: flex;
+flex-direction: column;
+text-align: center;
+align-items: center;
+gap: 1.7rem;
 
 }
 .center-person-top{
@@ -63,13 +96,38 @@ max-width: 400px;
     color: var(--color-484848);
     font-size: 20px;
 }
-.sabad{
-    background-color:var(--color-000000);
-    width: 50px;
-    height: 50px;
-    border-radius: 10px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -ms-border-radius: 10px;
-    -o-border-radius: 10px;
+
+/* Responsive */
+
+   .showmenue{
+        display: none;
+    }
+
+@media(max-width:800px){
+    .container{
+        width: 100%;
+        overflow-x: hidden;
+    }
+    .hideonmobile{
+        display: none;
+    }
+    .showmenue{
+        display: block;
+    }
+    
+    .top-head{
+        max-width: 800px;
+    }
+    .left-img{
+        max-width: 400px;
+    }
+    .center-person-top,.center-person-bot,.right-img{
+        display: none;
+        margin-bottom:3rem;
+    }
+    .img-ULT,.img-SAL{
+        width: 250px;
+    }
+
+  
 }

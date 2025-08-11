@@ -29,7 +29,6 @@ sendCodeBtn.addEventListener("click",(e)=>{
         }else{
            console.log("توکن یافت نشد");
         }
-        console.log(data);
         
         
     })
