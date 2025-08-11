@@ -2,7 +2,6 @@ import { Auth } from '@common/decorators/auth.decorator';
 import { PaginationOptions } from '@common/decorators/pagination-options.decorator';
 import { Role } from '@common/decorators/role.decorator';
 import { RoleEnum } from '@common/enum/role.enum';
-import { imageFileFilter } from '@common/validators/files/image-validator';
 import {
   Body,
   Controller,
@@ -11,11 +10,8 @@ import {
   Param,
   ParseIntPipe,
   Post,
-  UploadedFile,
-  UseInterceptors,
 } from '@nestjs/common';
-import { FileInterceptor } from '@nestjs/platform-express';
-import { ApiBody, ApiConsumes, ApiOkResponse } from '@nestjs/swagger';
+import { ApiOkResponse } from '@nestjs/swagger';
 import { Paginate, PaginateQuery } from 'nestjs-paginate';
 import { CreateProductDto } from '../dto/product/create-product.dto';
 import { PaginateProductResponse } from '../dto/product/paginate-product-response.dto';
@@ -28,14 +24,8 @@ export class ProductController {
 
   @Post()
   @Role([RoleEnum.USER])
-  @ApiConsumes('multipart/form-data')
-  @UseInterceptors(FileInterceptor('image', { fileFilter: imageFileFilter }))
-  @ApiBody({ type: CreateProductDto })
-  async create(
-    @Body() dto: CreateProductDto,
-    @UploadedFile() image: Express.Multer.File,
-  ) {
-    return await this.productService.create(dto, image);
+  async create(@Body() dto: CreateProductDto) {
+    return await this.productService.create(dto);
   }
 
   @Get()
@@ -63,18 +53,6 @@ export class ProductController {
     return await this.productService.findOne(id);
   }
 
-  // @Put(':id')
-  // @Role([RoleEnum.USER])
-  // @ApiConsumes('multipart/form-data')
-  // @UseInterceptors(FileInterceptor('image', { fileFilter: imageFileFilter }))
-  // async update(
-  //   @Body(new AtLeastOneFieldPipe(['name', 'description', 'price', 'stock']))
-  //   dto: UpdateProductDto,
-  //   @Param('id', ParseIntPipe) id: number,
-  //   @UploadedFile() image: Express.Multer.File,
-  // ) {
-  //   return await this.productService.update(id, dto, image);
-  // }
   @Delete(':id')
   @Role([RoleEnum.USER])
   async remove(@Param('id', ParseIntPipe) id: number) {

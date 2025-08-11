@@ -10,6 +10,7 @@ import {
 import { DeepPartial, Repository } from 'typeorm';
 import { CreateProductDto } from '../dto/product/create-product.dto';
 import { UpdateProductDto } from '../dto/product/update-product.dto';
+import { ProductAttribute } from '../entities/product-attribute.entity';
 import { Product } from '../entities/product.entity';
 
 @Injectable()
@@ -17,30 +18,35 @@ export class ProductService {
   constructor(
     @InjectRepository(Product)
     private readonly productRepository: Repository<Product>,
+    @InjectRepository(ProductAttribute)
+    private readonly attributeRepository: Repository<ProductAttribute>,
     private readonly s3Service: S3Service,
   ) {}
 
-  async create(
-    dto: CreateProductDto,
-    image: Express.Multer.File,
-  ): Promise<DeepPartial<Product>> {
-    if (image) {
-      const { key } = await this.s3Service.uploadFile(image);
+  async create(dto: CreateProductDto): Promise<DeepPartial<Product>> {
+    const { categoryId, attributes, description, name, price } = dto;
+    const newProduct = this.productRepository.create({
+      description,
+      name,
+      price,
+      categoryId,
+    });
+    const savedProduct = await this.productRepository.save(newProduct);
 
-      dto.image = key;
+    const newAttribute = this.attributeRepository.create({
+      size: attributes.size,
+      design: attributes.design,
+      color: attributes.color,
+      height: attributes.height,
+      mentality: attributes.mentality,
+      stock: attributes.stock,
+      productId: newProduct.id,
+    });
 
-      const newProduct: DeepPartial<Product> =
-        this.productRepository.create(dto);
+    await this.attributeRepository.save(newAttribute);
 
-      return await this.productRepository.save(newProduct);
-    } else {
-      const newProduct: DeepPartial<Product> =
-        this.productRepository.create(dto);
-
-      return await this.productRepository.save(newProduct);
-    }
+    return savedProduct;
   }
-
   async findAll(query: PaginateQuery): Promise<Paginated<Product>> {
     return paginate(query, this.productRepository, {
       sortableColumns: ['createdAt'],
