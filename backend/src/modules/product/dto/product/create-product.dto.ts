@@ -3,12 +3,12 @@ import { Exists } from '@common/validators/is-exist.validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import {
-  IsInt,
   IsNumber,
   IsOptional,
-  IsPositive,
   IsString,
+  ValidateNested,
 } from 'class-validator';
+import { CreateAttributeDto } from '../attribute/create-attribute.dto';
 
 export class CreateProductDto {
   @ApiProperty({ example: 'name 1' })
@@ -27,19 +27,14 @@ export class CreateProductDto {
   @Type(() => Number)
   price: number;
 
-  @ApiProperty({ example: 3 })
-  @IsInt()
-  @IsPositive()
-  @Type(() => Number)
-  stock: number;
-
-  @ApiProperty({ format: 'binary', required: false })
-  @IsOptional()
-  image: string;
-
   @ApiProperty({ example: 1 })
   @Type(() => Number)
   @IsNumber()
   @Exists(ProductCategory)
   categoryId: number;
+
+  @ApiProperty()
+  @ValidateNested()
+  @Type(() => CreateAttributeDto)
+  attributes: CreateAttributeDto;
 }
