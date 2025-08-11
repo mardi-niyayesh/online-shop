@@ -22,6 +22,7 @@ sendCodeBtn.addEventListener("click",(e)=>{
     
      })
     .then(res=>res.json())
+    
     .then((data)=>{
         if(data.accessToken){
             localStorage.setItem("Token",data.accessToken)
@@ -29,7 +30,7 @@ sendCodeBtn.addEventListener("click",(e)=>{
         }else{
            console.log("توکن یافت نشد");
         }
-        
+        console.log(data)
         
     })
     .catch(err=>console.error("کد وارد شده صحیح نمیباشد:"+err))

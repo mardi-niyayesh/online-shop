@@ -21,7 +21,7 @@ buttonElem.addEventListener("click",(e)=>{
 .then((data)=>{
     if(data.code){
         setTimeout(() => {
-             window.location.href="http://127.0.0.1:5500/frontend/Login/send-code.html"
+             window.location.href="http://127.0.0.1:5500/frontend/component/Login/send-code.html"
         }, 3000);
        
         alert("کد تایید:"+data.code)
