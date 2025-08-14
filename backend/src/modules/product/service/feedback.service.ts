@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import {
   FilterOperator,
@@ -39,5 +43,13 @@ export class FeedBackService {
         productId: [FilterOperator.EQ],
       },
     });
+  }
+
+  async findOne(id: number): Promise<DeepPartial<Rate>> {
+    const comment = await this.feedbackRepository.findOne({ where: { id } });
+
+    if (!comment) throw new NotFoundException();
+
+    return comment;
   }
 }
