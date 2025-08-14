@@ -1,5 +1,11 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import {
+  FilterOperator,
+  paginate,
+  Paginated,
+  PaginateQuery,
+} from 'nestjs-paginate';
 import { DeepPartial, Repository } from 'typeorm';
 import { CreateFeedBackDto } from '../dto/feedback/create-feedback.dto';
 import { Rate } from '../entities/rate.entity';
@@ -22,5 +28,16 @@ export class FeedBackService {
     const newFeedback = this.feedbackRepository.create(dto);
 
     return await this.feedbackRepository.save(newFeedback);
+  }
+
+  async findAll(query: PaginateQuery): Promise<Paginated<Rate>> {
+    return paginate(query, this.feedbackRepository, {
+      sortableColumns: ['createdAt'],
+      defaultSortBy: [['createdAt', 'DESC']],
+      relations: ['product', 'user'],
+      filterableColumns: {
+        productId: [FilterOperator.EQ],
+      },
+    });
   }
 }
