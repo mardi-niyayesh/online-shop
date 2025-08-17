@@ -12,6 +12,7 @@ import {
 } from 'nestjs-paginate';
 import { DeepPartial, Repository } from 'typeorm';
 import { CreateFeedBackDto } from '../dto/feedback/create-feedback.dto';
+import { UpdateFeedbackDto } from '../dto/feedback/update-feedback.dto';
 import { Rate } from '../entities/rate.entity';
 
 @Injectable()
@@ -51,5 +52,17 @@ export class FeedBackService {
     if (!comment) throw new NotFoundException();
 
     return comment;
+  }
+
+  async update(dto: UpdateFeedbackDto): Promise<DeepPartial<Rate>> {
+    const comment = await this.feedbackRepository.findOne({
+      where: { productId: dto.productId, userId: dto.userId },
+    });
+
+    if (!comment) throw new NotFoundException('Comment not found');
+
+    comment.rate = dto.rate;
+
+    return await this.feedbackRepository.save(comment);
   }
 }
