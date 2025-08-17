@@ -11,9 +11,11 @@ import {
   Param,
   ParseIntPipe,
   Post,
+  Put,
 } from '@nestjs/common';
 import { Paginate, PaginateQuery } from 'nestjs-paginate';
 import { CreateFeedBackDto } from '../dto/feedback/create-feedback.dto';
+import { UpdateFeedbackDto } from '../dto/feedback/update-feedback.dto';
 import { FeedBackService } from '../service/feedback.service';
 
 @Controller('feedbacks')
@@ -42,5 +44,12 @@ export class FeedBackController {
   @Role([RoleEnum.USER, RoleEnum.ADMIN])
   async findOne(@Param('id', ParseIntPipe) id: number) {
     return await this.feedbackService.findOne(id);
+  }
+
+  @Put()
+  @Role([RoleEnum.USER, RoleEnum.ADMIN])
+  async update(@Body() dto: UpdateFeedbackDto, @getUser() user: JwtPayload) {
+    dto.userId = user.sub;
+    return await this.feedbackService.update(dto);
   }
 }
