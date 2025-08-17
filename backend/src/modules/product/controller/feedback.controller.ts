@@ -7,6 +7,7 @@ import { JwtPayload } from '@common/interfaces/jwt-payload.interface';
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   ParseIntPipe,
@@ -51,5 +52,14 @@ export class FeedBackController {
   async update(@Body() dto: UpdateFeedbackDto, @getUser() user: JwtPayload) {
     dto.userId = user.sub;
     return await this.feedbackService.update(dto);
+  }
+
+  @Delete(':id')
+  @Role([RoleEnum.USER, RoleEnum.ADMIN])
+  async remove(
+    @Param('id', ParseIntPipe) id: number,
+    @getUser() user: JwtPayload,
+  ) {
+    return await this.feedbackService.remove(id, user.sub);
   }
 }

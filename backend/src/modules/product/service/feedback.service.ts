@@ -65,4 +65,15 @@ export class FeedBackService {
 
     return await this.feedbackRepository.save(comment);
   }
+
+  async remove(productId: number, userId: number) {
+    const { affected } = await this.feedbackRepository.delete({
+      productId,
+      userId,
+    });
+
+    if (!affected) throw new NotFoundException();
+
+    return { success: true };
+  }
 }
