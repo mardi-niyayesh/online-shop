@@ -3,6 +3,7 @@ import { S3Service } from '@common/services/s3.service';
 import { Module } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { DiscountController } from './controller/discount.controller';
 import { FeedBackController } from './controller/feedback.controller';
 import { ProductCategoryController } from './controller/product-category.controller';
 import { ProductController } from './controller/product.controller';
@@ -11,6 +12,7 @@ import { ProductAttribute } from './entities/product-attribute.entity';
 import { ProductCategory } from './entities/product-category.entity';
 import { Product } from './entities/product.entity';
 import { Rate } from './entities/rate.entity';
+import { DiscountService } from './service/discount.service';
 import { FeedBackService } from './service/feedback.service';
 import { ProductCategoryService } from './service/product-category.service';
 import { ProductService } from './service/product.service';
@@ -29,6 +31,7 @@ import { ProductService } from './service/product.service';
     ProductCategoryController,
     ProductController,
     FeedBackController,
+    DiscountController,
   ],
   providers: [
     ProductCategoryService,
@@ -37,6 +40,7 @@ import { ProductService } from './service/product.service';
     JwtAppService,
     JwtService,
     FeedBackService,
+    DiscountService,
   ],
 })
 export class ProductModule {}
