@@ -1,4 +1,4 @@
-
+ import { baseUrl } from '/frontend/apibase.js';
 const $=document
 
 const usernameElem=$.querySelector(".username")
@@ -10,7 +10,7 @@ const buttonElem=$.querySelector(".form-sign")
 buttonElem.addEventListener("click",(e)=>{
  e.preventDefault()
 
-   fetch(`http://localhost:3000/api/auth/get-otp?phone=${encodeURIComponent(phoneNumberElem.value)}&firstname=${encodeURIComponent(usernameElem.value)}&lastname=${encodeURIComponent(lastnameElem.value)}`,{
+   fetch(`${baseUrl}/auth/get-otp?phone=${encodeURIComponent(phoneNumberElem.value)}&firstname=${encodeURIComponent(usernameElem.value)}&lastname=${encodeURIComponent(lastnameElem.value)}`,{
     method:"GET",
     headers:{
         'Content-Type': 'application/json'
