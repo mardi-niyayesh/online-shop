@@ -37,7 +37,7 @@ padding: 2rem;
     font-size: 20px;
 }
 .box-product-brand{
-    color: var(--color-8A8A8A);
+    color: var(--color-484848);
     margin-bottom: 1rem;
 }
 .box-producr-comment{
@@ -50,7 +50,7 @@ text-decoration: none;
 color: var(--color-FF4646);
 }
   .product{
-        flex-direction: column;
+       
         gap: 1rem;
     }
 
