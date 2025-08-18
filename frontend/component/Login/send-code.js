@@ -1,4 +1,4 @@
-
+ import { baseUrl } from '/frontend/apibase.js';
 const $=document
 
 const sendCodeBtn=$.querySelector(".form-sign")
@@ -7,7 +7,7 @@ const getLocalPhone=localStorage.getItem("phone")
 
 sendCodeBtn.addEventListener("click",(e)=>{
     e.preventDefault()
-     fetch("http://localhost:3000/api/auth/verify-token",{
+     fetch(`${baseUrl}/auth/verify-token`,{
       method:"POST",
       headers:{
         'Content-Type': 'application/json'
