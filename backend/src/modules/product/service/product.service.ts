@@ -10,6 +10,7 @@ import {
 import { DeepPartial, Repository } from 'typeorm';
 import { CreateProductDto } from '../dto/product/create-product.dto';
 import { UpdateProductDto } from '../dto/product/update-product.dto';
+import { UploadImageDto } from '../dto/product/upload-image.dto';
 import { ProductAttribute } from '../entities/product-attribute.entity';
 import { Product } from '../entities/product.entity';
 
@@ -129,5 +130,16 @@ export class ProductService {
     if (!affected) throw new NotFoundException();
 
     return { success: true };
+  }
+
+  async uploadFile(
+    { productId }: UploadImageDto,
+    image: Express.Multer.File,
+  ): Promise<DeepPartial<Product>> {
+    const { key } = await this.s3Service.uploadFile(image, 'online-shop');
+
+    await this.productRepository.update({ id: productId }, { image: key });
+
+    return await this.findOne(productId);
   }
 }
