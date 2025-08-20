@@ -8,6 +8,9 @@ export class Rate extends BaseAppEntity {
   @Column()
   rate: number;
 
+  @Column()
+  message: string;
+
   //product & user
   @ManyToOne(() => User, (user) => user.rates, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'userId' })
