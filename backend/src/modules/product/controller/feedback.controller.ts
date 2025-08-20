@@ -4,6 +4,7 @@ import { PaginationOptions } from '@common/decorators/pagination-options.decorat
 import { Role } from '@common/decorators/role.decorator';
 import { RoleEnum } from '@common/enum/role.enum';
 import { JwtPayload } from '@common/interfaces/jwt-payload.interface';
+import { AtLeastOneFieldPipe } from '@common/pipe/at-least-one.pipe';
 import {
   Body,
   Controller,
@@ -26,7 +27,10 @@ export class FeedBackController {
 
   @Post()
   @Role([RoleEnum.USER, RoleEnum.ADMIN])
-  async create(@Body() dto: CreateFeedBackDto, @getUser() user: JwtPayload) {
+  async create(
+    @Body(new AtLeastOneFieldPipe(['rate', 'message'])) dto: CreateFeedBackDto,
+    @getUser() user: JwtPayload,
+  ) {
     dto.userId = user.sub;
     return await this.feedbackService.create(dto);
   }
@@ -49,7 +53,10 @@ export class FeedBackController {
 
   @Put()
   @Role([RoleEnum.USER, RoleEnum.ADMIN])
-  async update(@Body() dto: UpdateFeedbackDto, @getUser() user: JwtPayload) {
+  async update(
+    @Body(new AtLeastOneFieldPipe(['rate', 'message'])) dto: UpdateFeedbackDto,
+    @getUser() user: JwtPayload,
+  ) {
     dto.userId = user.sub;
     return await this.feedbackService.update(dto);
   }
