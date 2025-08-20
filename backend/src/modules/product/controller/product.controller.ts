@@ -1,7 +1,9 @@
+import { S3_BASE_PATH } from '@common/constant/constants';
 import { Auth } from '@common/decorators/auth.decorator';
 import { PaginationOptions } from '@common/decorators/pagination-options.decorator';
 import { Role } from '@common/decorators/role.decorator';
 import { RoleEnum } from '@common/enum/role.enum';
+import { imageFileFilter } from '@common/validators/files/image-validator';
 import {
   Body,
   Controller,
@@ -10,11 +12,15 @@ import {
   Param,
   ParseIntPipe,
   Post,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
-import { ApiOkResponse } from '@nestjs/swagger';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { ApiConsumes, ApiOkResponse } from '@nestjs/swagger';
 import { Paginate, PaginateQuery } from 'nestjs-paginate';
 import { CreateProductDto } from '../dto/product/create-product.dto';
 import { PaginateProductResponse } from '../dto/product/paginate-product-response.dto';
+import { UploadImageDto } from '../dto/product/upload-image.dto';
 import { ProductService } from '../service/product.service';
 
 @Controller('products')
@@ -57,5 +63,19 @@ export class ProductController {
   @Role([RoleEnum.USER])
   async remove(@Param('id', ParseIntPipe) id: number) {
     return await this.productService.remove(id);
+  }
+
+  @Post('upload-image')
+  @ApiConsumes('multipart/form-data')
+  @UseInterceptors(FileInterceptor('image', { fileFilter: imageFileFilter }))
+  @Role([RoleEnum.USER])
+  async uploadFile(
+    @Body() dto: UploadImageDto,
+    @UploadedFile() image: Express.Multer.File,
+  ) {
+    return {
+      product: await this.productService.uploadFile(dto, image),
+      baseUrl: S3_BASE_PATH,
+    };
   }
 }
