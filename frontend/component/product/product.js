@@ -108,32 +108,6 @@ async function showProductsByCategory(categoryId) {
   };
 }
 
-
-
-// async function fetchimgcomponent(file,productId) {
-//   const formData=new FormData()
-// formData.append('image',file);
-// formData.append('productId',productId);
-//   try {
-//     const response = await fetch('http://localhost:3000/api/products/upload-image', {
-//       method: 'POST',  
-//       headers: {
-//         'Authorization':`Bearer ${getToken}`,
-//         'Accept': 'image/jpeg,image/png,image/*,*/*;q=0.8' 
-//       },
-//       body:formData
-//     });
-
-//     const data = await response.json();
-//     return data.image; 
-//   } catch (error) {
-//    console.log("متاسفیم نتوانستیم تصویری نشان دهیم:(",err);
-//     return ''
-//   }
-// }
-
-
-
 //function=> fetchCategories +createCategoryButtons
 async function fetchCategoriesPluscreateCategoryButtons(page, limit) {
   const categories = await fetchCategories(page, limit);
