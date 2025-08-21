@@ -1,13 +1,14 @@
  import { baseUrl } from '/frontend/apibase.js';
-const  $doc=document
+const  $=document
 
-const productsContainer= $doc.querySelector(".product ")
-const productBox= $doc.querySelector(".main-box-product")
-const nextbtn= $doc.querySelector(".next")
-const prebtn= $doc.querySelector(".pre")
-const signbtn= $doc.querySelector(".sign")
-const containerCategory= $doc.querySelector(".container-btn-product")
+const productsContainer= $.querySelector(".product ")
+const productBox= $.querySelector(".main-box-product")
+const nextbtn= $.querySelector(".next")
+const prebtn= $.querySelector(".pre")
+const signbtn= $.querySelector(".sign")
+const containerCategory= $.querySelector(".container-btn-product")
 const getToken=localStorage.getItem("Token")
+const mybaseUrl = "https://exciting-liskov-zvkoer8rh.storage.c2.liara.space/";
 
 
 //Get categories from the server
@@ -18,12 +19,15 @@ async function fetchCategories(page,limit) {
       method: 'GET'
     });
     const data = await response.json();
+    console.log(data);
     if (Array.isArray(data.data)) {
       return data.data;
     } else {
       console.error('داده برگشتی آرایه نیست:', data);
       return [];
     }
+    
+    
   } catch (err) {
     console.log("نمی تونیم کتگوری های پروداکت ها رو نشون بدیم متاسفیم:(", err);
     return [];
@@ -64,19 +68,23 @@ function createCategoryButtons(categories) {
   });
 }
 
-//Creat  component for  product based o category ID
+//Creat  component for  product category ID
 //categoryId =category.id
 
 async function showProductsByCategory(categoryId) {
   const products = await fetchProductsByCategory(categoryId);
+
+
   productsContainer.innerHTML = '';
-  products.forEach(prod => {
+  for (const prod of products){
+    const imageUrl = prod.image? `${mybaseUrl}${prod.image}`: 'default-image.png';
+
     const componentProduct = document.createElement('div');
     componentProduct.className = 'main-box-product';
 
     componentProduct.innerHTML = `
       <div class="box-img">
-        <img src="/frontend/images/box-img1.png" alt="">
+        <img src="${imageUrl}" alt="">
       </div>
       <div class="box-star">
         <div class="box-star-title">Full Sweater</div>
@@ -86,20 +94,45 @@ async function showProductsByCategory(categoryId) {
           <img src="/frontend/images/icon-star.png" alt="">
         </div>
       </div>
-      <div class="box-product-brand">
-        <p>${prod.name}</p>
+      <div class="box-product-name">
+        <p> name:${prod.name}</p>
       </div>
       <div class="box-product-price">
         <div class="product-price">$${prod.price}</div>
-        <div class="box-Almost">
-          <p><a href="#">Almost Sold Out</a></p>
-        </div>
+          <p class="comment"><a href="#">View all comment</a></p>
+         <button class="box-Almost">Add to cart</button>
       </div>
     `;
-
+    
     productsContainer.appendChild(componentProduct);
-  });
+  };
 }
+
+
+
+// async function fetchimgcomponent(file,productId) {
+//   const formData=new FormData()
+// formData.append('image',file);
+// formData.append('productId',productId);
+//   try {
+//     const response = await fetch('http://localhost:3000/api/products/upload-image', {
+//       method: 'POST',  
+//       headers: {
+//         'Authorization':`Bearer ${getToken}`,
+//         'Accept': 'image/jpeg,image/png,image/*,*/*;q=0.8' 
+//       },
+//       body:formData
+//     });
+
+//     const data = await response.json();
+//     return data.image; 
+//   } catch (error) {
+//    console.log("متاسفیم نتوانستیم تصویری نشان دهیم:(",err);
+//     return ''
+//   }
+// }
+
+
 
 //function=> fetchCategories +createCategoryButtons
 async function fetchCategoriesPluscreateCategoryButtons(page, limit) {
