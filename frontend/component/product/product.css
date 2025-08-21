@@ -25,30 +25,41 @@ padding: 2rem;
     align-items: center;
     justify-content: center;
 }
-.box-star,.box-product-price{
+.box-star{
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 1rem;
+}
+.box-Almost{
+    padding:0.3rem 1rem;
+    background-color:greenyellow;
+    border: none;
+    margin-top: 1rem;
+    width: 100%;
+    font-weight: bold;
+}
+.comment a{
+    color: var(--color-FF4646);
+    font-size: 17px;
+    text-decoration: none;
+     margin-top: 1rem;
 }
 .box-star-title,.product-price{
     color: var(--color-484848);
     font-weight: bold;
     font-size: 20px;
 }
-.box-product-brand{
+.box-product-name{
     color: var(--color-484848);
     margin-bottom: 1rem;
+    font-size: 17px;
 }
 .box-producr-comment{
 color: var(--color-484848);
 margin-bottom: 1rem;
 }
 
-.box-Almost p a {
-text-decoration: none;
-color: var(--color-FF4646);
-}
   .product{
        
         gap: 1rem;
