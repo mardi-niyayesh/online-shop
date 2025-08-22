@@ -73,7 +73,11 @@ function createCategoryButtons(categories) {
 
 async function showProductsByCategory(categoryId) {
   const products = await fetchProductsByCategory(categoryId);
-
+ 
+   if (!Array.isArray(products)) {
+    products = [];
+    console.error("fetchProductsByCategory did not return an array", products);
+  }
 
   productsContainer.innerHTML = '';
   for (const prod of products){
@@ -103,7 +107,19 @@ async function showProductsByCategory(categoryId) {
          <button class="box-Almost">Add to cart</button>
       </div>
     `;
-    
+    const commentParagraf=componentProduct.querySelector('p.comment')
+    commentParagraf.addEventListener("click",(event)=>{
+   event.preventDefault()
+   localStorage.setItem(`getImg`,imageUrl);
+  
+    localStorage.setItem(`getnameproduct`,prod.name);
+    localStorage.setItem(`productId`,prod.id);
+ 
+   
+   window.location.href='/frontend/component/feedbacks/feedback.html'
+
+});
+
     productsContainer.appendChild(componentProduct);
   };
 }
