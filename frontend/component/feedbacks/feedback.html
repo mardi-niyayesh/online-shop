@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/frontend/repeat.css">
+    <link rel="stylesheet" href="/frontend/component/feedbacks/feedback.css">
+  
+</head>
+<body dir="rtl">
+
+    <div class="container-box-product">
+        <img class="container-box-imgproduct" src="">
+        <div class="container-box-nameproduct"></div>
+    </div>
+    <button class="sign readcomment">Write comment</button>
+
+    <!-- TEST  box comment-->
+     <div class="box-comment" > 
+        <form >
+        <img src="/frontend/images/icons8-close-30.png" alt="" class="icon-close">
+        <div class="container-input">
+        <label class="box-comment-showStar">giving stars:</label>
+        <input type="number" placeholder="Number stars" class="number-star">
+        </div>
+        <br>
+
+        <div class="container-input">
+        <label class="box-comment-nameuser">Write comment:</label>
+        <input type="text" placeholder="Write comment" class="input-comment">
+        </div>
+
+        <br>
+
+        <button class="sign box-send">Send Comment</button>
+        </form>
+      
+     </div>
+
+     <!-- add comment to Dom -->
+    <div class="container-feedback">
+        <div class="feedback-item">
+        <div class="name-text">fatemeh saeedi</div>
+
+       <div class="star comment">
+            <div class="box-collection-star">
+                <img src="/frontend/images/icon-star.png" alt="">
+            </div>
+        </div>
+       
+        <div class="text-comment">کالای خوبی بود ممنون از تیم پشتیبانی وب سایت</div>
+        </div>
+   
+    </div>
+
+     <div class="container-feedback">
+        <div class="feedback-item">
+            <div class="name-text">nazanin mohammadi</div>
+
+       <div class="starcomment">
+            <div class="box-collection-star">
+                <img src="/frontend/images/icon-star.png" alt="">
+            </div>
+        </div>
+       
+        <div class="text-comment">رنگ لباس دقیقا مطابق با عکس بودو جنس خوبی داشت ولی یک سایز بهم کوچیکه</div>
+        </div>
+     
+    </div>
+         
+ 
+
+     <script src="/frontend/component/feedbacks/feedback.js"></script>
+    
+
+</body>
+</html>
