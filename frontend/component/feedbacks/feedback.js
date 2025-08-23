@@ -1,19 +1,21 @@
+ import { baseUrl } from '/frontend/apibase.js';
+const $=document
 
 const imageUrl =localStorage.getItem(`getImg`)
 const getNameProduct =localStorage.getItem(`getnameproduct`)
 const getProductId =localStorage.getItem(`productId`)
 const getToken=localStorage.getItem("Token")
 
-const boxImgproduct=document.querySelector(".container-box-imgproduct")
-const boxNameproduct=document.querySelector(".container-box-nameproduct")
-const boxwritecomment=document.querySelector(".readcomment")
-const containerComment=document.querySelector(".box-comment")
-const iconClose=document.querySelector(".icon-close")
-const numberStar=document.querySelector(".number-star")
-const inputComment=document.querySelector(".input-comment")
-const boxSend=document.querySelector(".box-send")
-const nameText=document.querySelector(".name-text")
-const containerfeedback=document.querySelector(".container-feedback")
+const boxImgproduct=$.querySelector(".container-box-imgproduct")
+const boxNameproduct=$.querySelector(".container-box-nameproduct")
+const boxwritecomment=$.querySelector(".readcomment")
+const containerComment=$.querySelector(".box-comment")
+const iconClose=$.querySelector(".icon-close")
+const numberStar=$.querySelector(".number-star")
+const inputComment=$.querySelector(".input-comment")
+const boxSend=$.querySelector(".box-send")
+const nameText=$.querySelector(".name-text")
+const containerfeedback=$.querySelector(".container-feedback")
 
 // show photo of product
 if(imageUrl){
@@ -30,16 +32,21 @@ containerComment.style.display='block'
 
 
 })
+
+//
+window.addEventListener('load', getfetchfeedback);
+
 //hidden comment box
 iconClose.addEventListener("click",()=>{
   containerComment.style.display='none'
 })
  
-window.addEventListener('load', getfetchfeedback);
+
 
 
 //event click for send product feedback
 boxSend.addEventListener("click", async(event)=>{
+containerComment.style.display='none'
  event.preventDefault()
 await fetchfeedback();
 await getfetchfeedback()
@@ -51,7 +58,7 @@ await getfetchfeedback()
       if (isNaN(rateValue) || rateValue < 1) rateValue = 1;
       if (rateValue > 5) rateValue = 5;
   try{
-  const response=await fetch(`http://localhost:3000/api/feedbacks`,{
+  const response=await fetch(`${baseUrl}/feedbacks`,{
   method: 'POST',
   headers: {
         'Content-Type': 'application/json',
@@ -80,7 +87,7 @@ await getfetchfeedback()
 //get product feedback to  server
 async function getfetchfeedback(){
     try {
-        const response = await fetch(`http://localhost:3000/api/feedbacks?filter.productId=${getProductId}`, {
+        const response = await fetch(`${baseUrl}/feedbacks?filter.productId=${getProductId}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -107,34 +114,25 @@ async function getfetchfeedback(){
     }
 }
 
-
-
- //creat component star
-function createStars(rateValue, containerfeedback) {
-    for(let i = 1; i <= rateValue; i++) {
-        const divStar = document.createElement('div');
-        divStar.className = "starcomment";
-           divStar.innerHTML=` <div class="box-collection-star">
-                <img src="/frontend/images/icon-star.png" alt="">
-            </div>`
-          containerfeedback.append(divStar)
-    }
-}
-
 //creat component fo feedback
 function createFeedbackComponent(feedback) {
     const feedbackDiv = document.createElement('div');
     feedbackDiv.className = 'feedback-item';
 
+    let starsHtml = '';
+    for (let i = 1; i <= feedback.rate; i++) {
+        starsHtml += `<img src="/frontend/images/icon-star.png" alt="star" />`;
+    }
+
     feedbackDiv.innerHTML = `
         <div class="user-name">${feedback.user.firstname} ${feedback.user.lastname}</div>
         <div class="starcomment">
-            <img src="/frontend/images/icon-star.png" alt="star" />
-            <span>${feedback.rate}</span>
+            ${starsHtml}
+            <span class='span-rate'> rate: ${feedback.rate}</span>
         </div>
         <div class="text-comment">${feedback.message}</div>
+        <hr>
     `;
-
     return feedbackDiv;
-
 }
+
