@@ -19,40 +19,41 @@
         </div>
     
     </div>
-    <div class="container-body-dashbord">
-          <div class="welcom">
-        <h1>Welcome to the panel</h1>
-        <img src="https://icongr.am/entypo/hand.svg?size=46&color=4c4848">
-        <img src="https://icongr.am/entypo/heart.svg?size=46&color=ec1313" alt="">
-         </div>
-          <ul class="admin">
-        <div class="container-li">
-           <li>discount</li>
-          
-        </div>
+    <!-- add product to panel -->
+     <form class="addProductForm">
 
-          <div class="container-li">
-           <li>user</li>
-           
-        </div>
+        <label for="name-product">name product</label>
+        <input type="text" id="name-product" placeholder="name product" >
 
-          <div class="container-li">
-           <li>payments</li>
-        </div>
+        <label for="price-product" >price product</label>
+        <input type="number" id="price-product" placeholder="price product" >
 
-          <div class="container-li">
-           <li>product</li>
-        </div>
+        <label for="description">description</label>
+        <textarea id="description"rows="5" ></textarea>
 
-          <div class="container-li">
-           <li >baskets</li>
-           
-        </div>
-       
-          </ul>
-  
-   
-    </div>
+        <label for="category">category</label>
+        <select id="category">
+            <option value="">select category</option>
+            <option value="Socks">Socks </option>
+            <option value="Hat">Hat </option>
+            <option value="Coat">Coat  </option>
+        </select>
+
+        <label for="image-product">image product</label>
+        <input type="file" id="image-product" accept="image/*">
+
+        <button type="submit" class="sign"> add product</button>
+    </form>
+
+
+
+
+
+
+
+
+
+
     <script src="/frontend/component/panel-admin/panel-admin.js"></script>
 </body>
 </html>
