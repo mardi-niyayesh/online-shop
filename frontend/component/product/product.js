@@ -1,4 +1,5 @@
- import { baseUrl } from '/frontend/apibase.js';
+export {fetchProductsByCategory};
+import { baseUrl } from '/frontend/apibase.js';
 const  $=document
 
 const productsContainer= $.querySelector(".product ")
@@ -62,7 +63,7 @@ function createCategoryButtons(categories) {
     btnCategory.className = 'sign';
     btnCategory.textContent = category.title;
     btnCategory.setAttribute('data-id', category.id);
-    containerCategory.appendChild(btnCategory);
+    containerCategory.append(btnCategory);
 
     btnCategory.addEventListener('click', () => showProductsByCategory(category.id));
   });
