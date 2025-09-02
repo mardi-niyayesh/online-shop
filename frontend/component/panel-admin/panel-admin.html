@@ -17,43 +17,85 @@
             <h1 class="dashboard">dashboard</h1>
             <img  class="icon-sidbar" src="https://icongr.am/feather/align-justify.svg?size=46&color=595454" alt="">
         </div>
-    
+        
     </div>
+
+     <!-- option panel -->
+         <ul class="admin">
+        <div class="container-li">
+           <li>discount</li>
+          
+        </div>
+
+          <div class="container-li">
+           <li>user</li>
+           
+        </div>
+
+          <div class="container-li">
+           <li>payments</li>
+        </div>
+
+          <div class="container-li">
+           <li>product</li>
+        </div>
+
+          <div class="container-li">
+           <li >baskets</li>
+           
+        </div>
+       
+        </ul>
+
     <!-- add product to panel -->
      <form class="addProductForm">
 
-        <label for="name-product">name product</label>
+
+    <div class="">
+        <label for="name-product">name product:</label>
+        <br>
         <input type="text" id="name-product" placeholder="name product" >
-
-        <label for="price-product" >price product</label>
+    </div>
+       
+    <div class="">
+        <label for="price-product" >price product:</label>
+        <br>
         <input type="number" id="price-product" placeholder="price product" >
-
-        <label for="description">description</label>
-        <textarea id="description"rows="5" ></textarea>
-
+    </div>
+     
+     <div class="divdescrip">
+         <label for="description">description:</label>
+         <br>
+        <textarea id="description"rows="2" ></textarea>
+     </div>
+       
+    <div class="">
         <label for="category">category</label>
+        <br>
         <select id="category">
             <option value="">select category</option>
-            <option value="Socks">Socks </option>
-            <option value="Hat">Hat </option>
-            <option value="Coat">Coat  </option>
         </select>
+    </div>
 
-        <label for="image-product">image product</label>
+        <label for="image-product">image product:</label>
+        <br>
         <input type="file" id="image-product" accept="image/*">
-
+     
+        <br>
         <button type="submit" class="sign"> add product</button>
     </form>
+     <button  type="submit" class="add-category">add category</button>
+ 
 
+<!-- creat new category by paneladmin -->
+        <form class="add-cat-panel">
+        <label for="name-category">name category :</label>
+        <br>
+        <input rows="1" placeholder="Write name category" class="name-category">
+        <br>
+        <button class="btn-re-cat" type="submit"> Register category</button>
+       </form>
 
-
-
-
-
-
-
-
-
-    <script src="/frontend/component/panel-admin/panel-admin.js"></script>
+    <script src="/frontend/component/panel-admin/panel-admin.js" type="module""></script>
 </body>
 </html>
