@@ -14,12 +14,12 @@ export class CreateDiscountDto {
   @Max(100)
   percent: number;
 
-  @ApiProperty({ required: false, example: '2025-08-17T12:00:00Z' })
+  @ApiProperty({ required: false, example: '2025-08-17' })
   @IsDateString()
   @IsOptional()
   startDate: Date;
 
-  @ApiProperty({ required: false, example: '2025-08-17T12:00:00Z' })
+  @ApiProperty({ required: false, example: '2025-09-17' })
   @IsDateString()
   @IsOptional()
   endDate: Date;
