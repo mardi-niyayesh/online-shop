@@ -49,24 +49,22 @@
 
     <!-- add product to panel -->
      <form class="addProductForm">
-
-
     <div class="">
         <label for="name-product">name product:</label>
         <br>
-        <input type="text" id="name-product" placeholder="name product" >
+        <input name="name" type="text" id="name-product" placeholder="name product" >
     </div>
        
     <div class="">
         <label for="price-product" >price product:</label>
         <br>
-        <input type="number" id="price-product" placeholder="price product" >
+        <input name="price" type="number" id="price-product" placeholder="price product" >
     </div>
      
      <div class="divdescrip">
          <label for="description">description:</label>
          <br>
-        <textarea id="description"rows="2" ></textarea>
+        <textarea name="description" id="description"rows="2" ></textarea>
      </div>
        
     <div class="">
@@ -79,11 +77,14 @@
 
         <label for="image-product">image product:</label>
         <br>
-        <input type="file" id="image-product" accept="image/*">
+        <input  name="image" type="file" id="image-product" accept="image/*">
      
         <br>
         <button type="submit" class="sign"> add product</button>
     </form>
+
+    
+
      <button  type="submit" class="add-category">add category</button>
  
 
