@@ -176,3 +176,4 @@ btnRegisterCategory.addEventListener('click',(event)=>{
 window.addEventListener('DOMContentLoaded',()=>{
   fetchGetCategory()
 })
+
