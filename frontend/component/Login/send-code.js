@@ -7,7 +7,7 @@ const getLocalPhone=localStorage.getItem("phone")
 
 sendCodeBtn.addEventListener("click",(e)=>{
     e.preventDefault()
-     fetch(`${baseUrl}/auth/verify-token`,{
+     fetch(`http://localhost:3000/api/auth/verify-token`,{
       method:"POST",
       headers:{
         'Content-Type': 'application/json'
