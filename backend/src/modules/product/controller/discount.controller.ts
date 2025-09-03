@@ -5,6 +5,7 @@ import { AtLeastOneFieldPipe } from '@common/pipe/at-least-one.pipe';
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   ParseIntPipe,
@@ -49,5 +50,11 @@ export class DiscountController {
   @Role([RoleEnum.USER, RoleEnum.ADMIN])
   async findOne(@Param('id', ParseIntPipe) id: number) {
     return await this.discountService.findOne(id);
+  }
+
+  @Delete(':id')
+  @Role([RoleEnum.ADMIN])
+  async remove(@Param('id', ParseIntPipe) id: number) {
+    return await this.discountService.remove(id);
   }
 }

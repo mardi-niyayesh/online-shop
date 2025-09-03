@@ -45,4 +45,12 @@ export class DiscountService {
 
     return discount;
   }
+
+  async remove(id: number) {
+    const { affected } = await this.discountRepository.delete({ id });
+
+    if (!affected) throw new NotFoundException();
+
+    return { success: true };
+  }
 }
