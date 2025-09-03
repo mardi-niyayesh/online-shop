@@ -1,6 +1,15 @@
 import { PaginationOptions } from '@common/decorators/pagination-options.decorator';
+import { Role } from '@common/decorators/role.decorator';
+import { RoleEnum } from '@common/enum/role.enum';
 import { AtLeastOneFieldPipe } from '@common/pipe/at-least-one.pipe';
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+} from '@nestjs/common';
 import { Paginate, PaginateQuery } from 'nestjs-paginate';
 import { CreateDiscountDto } from '../dto/discount/create-discount.dto';
 import { ExpVsGlobalDiscountPipe } from '../pipes/exp-discount.pipe';
@@ -11,6 +20,7 @@ export class DiscountController {
   constructor(private readonly discountService: DiscountService) {}
 
   @Post()
+  @Role([RoleEnum.ADMIN])
   async create(
     @Body(
       new AtLeastOneFieldPipe(['categoryId', 'productId']),
@@ -30,7 +40,14 @@ export class DiscountController {
 
     sortOptions: [{ example: 'createdAt:DESC' }],
   })
+  @Role([RoleEnum.USER, RoleEnum.ADMIN])
   async findAll(@Paginate() query: PaginateQuery) {
     return await this.discountService.findAll(query);
+  }
+
+  @Get(':id')
+  @Role([RoleEnum.USER, RoleEnum.ADMIN])
+  async findOne(@Param('id', ParseIntPipe) id: number) {
+    return await this.discountService.findOne(id);
   }
 }

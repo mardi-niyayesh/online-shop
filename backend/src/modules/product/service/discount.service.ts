@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import {
   FilterOperator,
@@ -33,5 +33,16 @@ export class DiscountService {
         categoryId: [FilterOperator.EQ],
       },
     });
+  }
+
+  async findOne(id: number): Promise<DeepPartial<Discount>> {
+    const discount = await this.discountRepository.findOne({
+      where: { id },
+      relations: { product: true, category: true },
+    });
+
+    if (!discount) throw new NotFoundException();
+
+    return discount;
   }
 }
