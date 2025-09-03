@@ -1,4 +1,4 @@
-import{fetchProductsByCategory}from "/frontend/component/product/product.js"
+//import{fetchProductsByCategory}from "/frontend/component/product/product.js"
 const $=document
 const getToken=localStorage.getItem("Token")
 const containerli=$.querySelectorAll(".container-li")
@@ -26,7 +26,6 @@ containerli.forEach(element => {
   });
 });
 
-
 // click submit btn for add product to panel admin
 addProductForm.addEventListener("submit",(event)=>{
 event.preventDefault()
@@ -40,22 +39,26 @@ if(Number(priceProduct.value) <= 0){
     alert("قیمت باید عددی صحیح و بزرگتر از صفر باشد");
     return;
 }
- const formData = new FormData();
-formData.append('name', nameProduct.value.toString());
-formData.append('price', priceProduct.value.toString()); 
-formData.append('description', description.value);
-formData.append('categoryId', category.value.toString()); 
-if (imageProduct.files.length > 0) {
-  formData.append('image', imageProduct.files[0]);
-}
-
+ const formData = new FormData(addProductForm);
+ formData.forEach((key,val)=>{
+  console.log(key,val);
+ })
+ const o=Object.fromEntries(formData.entries());
+ console.log(o);
+ 
+// formData.append('name', nameProduct.value.toString());
+// formData.append('price', priceProduct.value.toString()); 
+// formData.append('description', description.value);
+// formData.append('categoryId', category.value.toString()); 
+// if (imageProduct.files.length > 0) {
+//   formData.append('image', imageProduct.files[0]);
+// }
+console.log(formData);
 fetchaddProduct(formData)
-// fetchProductsByCategory()
 })
 
 //add product from panel to products
 async function fetchaddProduct(formData){
-
 try{
    const response=await fetch(`http://localhost:3000/api/products`,{
     method: 'POST',
@@ -63,12 +66,6 @@ try{
        'Authorization': `Bearer ${getToken}`
     },
       body: formData,
-      // body:JSON.stringify({
-      //   name:nameProduct.value,
-      //   price:priceProduct.value,
-      //   description:description.value,
-      //   categoryId:category.value
-      // })
   })
 
  const data = await response.json();
@@ -83,6 +80,25 @@ try{
     console.log("خطا در ساختن محصولات:",err);
     
   }
+  fetchgetproduct()
+}
+
+//get all product to server
+async function fetchgetproduct(){
+  try{
+  const response=await fetch(`http://localhost:3000/api/products`,{
+  method: 'GET',
+  headers: {
+        'Authorization': `Bearer ${getToken}`,
+        'Content-Type': 'application/json'
+      } 
+  })
+  const data=await response.json()
+   console.log('همه محصولات با موفقیت از سرور دریافت شد',data);
+  }catch(err){
+    console.log('خطا در دریافت محصولات از سرور',err);
+    
+  } 
 }
 
 //get ALL categores by server
@@ -104,7 +120,6 @@ async function fetchGetCategory(){
      optionElem.textContent = cat.title;
      optionElem.value=cat.id;
      category.append(optionElem)
-    
     })
   }
   }
