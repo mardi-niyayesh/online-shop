@@ -33,7 +33,8 @@ export class BasketController {
   @PaginationOptions({
     filterOptions: [
       { field: 'userId', example: '$eq:1' },
-      { field: 'isCheckedOut', example: '$eq:true' },
+      { field: 'isCheckedOut', example: '$eq:0' },
+      { field: 'isCheckedOut', example: '$eq:1' },
     ],
   })
   async findAll(@Paginate() query: PaginateQuery) {
