@@ -1,3 +1,4 @@
+import { BasketItem } from '@app/basket/entities/basket-item.entity';
 import { BaseAppEntity } from '@common/entity/base.entity';
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { Discount } from './discount.entity';
@@ -39,4 +40,7 @@ export class Product extends BaseAppEntity {
 
   @OneToMany(() => Discount, (discount) => discount.product)
   discounts: Discount[];
+
+  @OneToMany(() => BasketItem, (items) => items.product)
+  basketItems: BasketItem[];
 }
