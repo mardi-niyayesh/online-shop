@@ -60,10 +60,22 @@ color: var(--color-484848);
 margin-bottom: 1rem;
 }
 
-  .product{
+.product{
        
         gap: 1rem;
-    }
+}
+
+.discount-btn{
+   color: var(--color-f0f0f0);
+   background-color: var(--color-FF4646);
+   border-radius: 5px;
+   -webkit-border-radius: 5px;
+   -moz-border-radius: 5px;
+   -ms-border-radius: 5px;
+   -o-border-radius: 5px;
+   padding: 0 0.5rem;
+   border: none;
+}
 
 /* Responsive */
 
