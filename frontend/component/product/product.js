@@ -71,36 +71,24 @@ function createCategoryButtons(categories) {
 //categoryId =category.id
 async function showProductsByCategory(categoryId) {
   const products = await fetchProductsByCategory(categoryId);
-  let discounts = await fetchgetdiscount(categoryId);
- 
-   if (!Array.isArray(products)) {
+
+  if (!Array.isArray(products)) {
     products = [];
     console.error("پروداکت های شما ارایه نیست", products);
   }
-
- if (!Array.isArray(discounts)) {
-    discounts = [];
-    console.error("لیست تخفیفات شما ارایه نیست",discounts);
-  }
-
   
-  const productsWithDiscounts = products.map(prod => {
-    const discount = discounts.find(dis => dis.productId === prod.id);
-    return {
-      ...prod,
-      discountPercent: discount ? discount.percent : 0
-
-    };
-  });
-
   productsContainer.innerHTML = '';
-  for (const prod of productsWithDiscounts){
-    const imageUrl = prod.image? `${mybaseUrl}${prod.image}`: 'default-image.png';
 
- const hasDiscount = prod.discountPercent && prod.discountPercent > 0;
-  const discountedPrice = hasDiscount? (prod.price * (1 - prod.discountPercent / 100)).toFixed(2): prod.price;
-    
-    
+for (const prod of products){
+
+const imageUrl = prod.image? `${mybaseUrl}${prod.image}`: 'default-image.png';
+
+const discountPercent = (Array.isArray(prod.discounts))&&prod.discounts.length > 0 ? prod.discounts[0].percent : 0;
+const hasDiscount = discountPercent > 0;
+const price = Number(prod.price) || 0;
+const discountedPrice = hasDiscount ? (price * (1 - discountPercent / 100)).toFixed(2) : price.toFixed(2);
+
+
     const componentProduct = document.createElement('div');
     componentProduct.className = 'main-box-product';
 
@@ -126,7 +114,7 @@ async function showProductsByCategory(categoryId) {
                <span style="text-decoration: line-through;">$${prod.price}</span>
                <span style="font-weight: bold; margin-left: 8px;">$${discountedPrice}</span>
              </div>
-             <button class="discount-btn">${prod.discountPercent}%</button>`
+             <button class="discount-btn">${discountPercent}%</button>`
           : `<div class="product-price">$${prod.price}</div>`
         }
         <p class="comment"><a href="#">View all comment</a></p>
@@ -149,32 +137,6 @@ async function showProductsByCategory(categoryId) {
     productsContainer.appendChild(componentProduct);
   };
 }
-
-//get all discounts product
-async function fetchgetdiscount(categoryId){
-  try{
-  const response=await fetch(`http://localhost:3000/api/discounts?filter.categoryId=${categoryId}`,{
-    method:'GET',
-    headers: {
-    'Content-Type': 'application/json',
-    'Authorization': `Bearer ${getToken}`
-     }
-      
-  })
-  const data= await response.json()
-  console.log('تخیف محصولات با موفقیت گرفته شد ',data.data);
-  return data.data;
-  }
-  catch(err){
-  console.log('متاسفانه نتوانستیم تخفیف ها رو دریافت کنیم ',err);
-   return [];
-  }
-
-}
-
-fetchgetdiscount()
-
-
 //function=> fetchCategories +createCategoryButtons
 async function fetchCategoriesPluscreateCategoryButtons(page, limit) {
   const categories = await fetchCategories(page, limit);
