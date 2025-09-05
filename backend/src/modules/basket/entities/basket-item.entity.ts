@@ -25,6 +25,6 @@ export class BasketItem extends BaseAppEntity {
   @Column()
   quantity: number;
 
-  @Column()
+  @Column('decimal', { precision: 10, scale: 2 })
   price: number;
 }
