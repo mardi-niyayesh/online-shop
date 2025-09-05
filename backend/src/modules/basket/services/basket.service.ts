@@ -1,5 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { FilterOperator, paginate, PaginateQuery } from 'nestjs-paginate';
 import { Repository } from 'typeorm';
 import { AddManyItemsDto } from '../dto/add-many-items.dto';
 import { BasketItem } from '../entities/basket-item.entity';
@@ -20,7 +21,7 @@ export class BasketService {
 
     let basket = await this.basketRepository.findOneBy({ userId });
 
-    if (!basket) {
+    if (!basket || (basket && basket.isCheckedOut)) {
       const newBasket = this.basketRepository.create({ userId });
       basket = await this.basketRepository.save(newBasket);
     }
@@ -58,5 +59,42 @@ export class BasketService {
     return await this.itemRepository.find({
       where: { basketId: basket.id },
     });
+  }
+
+  async findAll(queryParams: PaginateQuery) {
+    return await paginate(queryParams, this.basketRepository, {
+      sortableColumns: ['createdAt'],
+      defaultSortBy: [['createdAt', 'DESC']],
+      relations: [
+        'items',
+        'user',
+        'items.product',
+        'items.product.category',
+        'items.product.attributes',
+        'items.product.discounts',
+      ],
+      filterableColumns: {
+        userId: [FilterOperator.EQ],
+        isCheckedOut: [FilterOperator.EQ],
+      },
+    });
+  }
+
+  async findOne(userId: number): Promise<Basket> {
+    const userBasket = await this.basketRepository.findOne({
+      where: { userId, isCheckedOut: false },
+      relations: [
+        'items',
+        'user',
+        'items.product',
+        'items.product.category',
+        'items.product.attributes',
+        'items.product.discounts',
+      ],
+    });
+
+    if (!userBasket) throw new NotFoundException('No basket for you');
+
+    return userBasket;
   }
 }

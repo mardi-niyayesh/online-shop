@@ -1,9 +1,11 @@
 import { Auth } from '@common/decorators/auth.decorator';
 import { getUser } from '@common/decorators/get-user.decorator';
+import { PaginationOptions } from '@common/decorators/pagination-options.decorator';
 import { Role } from '@common/decorators/role.decorator';
 import { RoleEnum } from '@common/enum/role.enum';
 import { JwtPayload } from '@common/interfaces/jwt-payload.interface';
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Paginate, PaginateQuery } from 'nestjs-paginate';
 import { AddManyItemsDto } from '../dto/add-many-items.dto';
 import { BasketService } from '../services/basket.service';
 
@@ -16,5 +18,23 @@ export class BasketController {
   @Role([RoleEnum.USER])
   async create(@Body() dto: AddManyItemsDto, @getUser() user: JwtPayload) {
     return await this.service.create(dto, user.sub);
+  }
+
+  @Get()
+  @Role([RoleEnum.ADMIN])
+  @PaginationOptions({
+    filterOptions: [
+      { field: 'userId', example: '$eq:1' },
+      { field: 'isCheckedOut', example: '$eq:true' },
+    ],
+  })
+  async findAll(@Paginate() query: PaginateQuery) {
+    return await this.service.findAll(query);
+  }
+
+  @Get('userBasket')
+  @Role([RoleEnum.USER])
+  async findOne(@getUser() user: JwtPayload) {
+    return await this.service.findOne(user.sub);
   }
 }
