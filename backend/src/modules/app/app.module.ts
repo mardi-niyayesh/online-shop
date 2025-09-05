@@ -1,4 +1,5 @@
 import { AuthModule } from '@app/auth/auth.module';
+import { BasketModule } from '@app/basket/basket.module';
 import { ProductModule } from '@app/product/product.module';
 import { UserModule } from '@app/user/user.module';
 import { TypeOrmConfig } from '@config/typeorm.config';
@@ -15,6 +16,7 @@ import { AppService } from './app.service';
     AuthModule,
     ConfigModule.forRoot({ isGlobal: true }),
     ProductModule,
+    BasketModule,
   ],
   controllers: [AppController],
   providers: [AppService],
