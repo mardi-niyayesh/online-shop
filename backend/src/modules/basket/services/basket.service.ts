@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FilterOperator, paginate, PaginateQuery } from 'nestjs-paginate';
 import { Repository } from 'typeorm';
@@ -96,5 +100,27 @@ export class BasketService {
     if (!userBasket) throw new NotFoundException('No basket for you');
 
     return userBasket;
+  }
+
+  async removeFromBasket(productId: number, userId: number) {
+    const userBasket = await this.basketRepository.findOne({
+      where: {
+        userId,
+      },
+    });
+
+    if (!userBasket)
+      throw new BadRequestException('You don`t have basket yet !');
+
+    const userBasketItem = await this.itemRepository.findOne({
+      where: { productId, basketId: userBasket.id },
+    });
+
+    if (!userBasketItem)
+      throw new NotFoundException('You didnt add this item to your basket');
+
+    await this.itemRepository.delete({ id: userBasketItem.id });
+
+    return { success: true };
   }
 }
