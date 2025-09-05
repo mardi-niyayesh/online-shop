@@ -14,4 +14,7 @@ export class Basket extends BaseAppEntity {
 
   @OneToMany(() => BasketItem, (items) => items.basket)
   items: BasketItem[];
+
+  @Column({ default: false })
+  isCheckedOut: boolean;
 }
