@@ -27,12 +27,15 @@ export class ProductCategoryService {
     return paginate(query, this.categoryRepository, {
       sortableColumns: ['createdAt', 'updatedAt'],
       defaultSortBy: [['createdAt', 'DESC']],
-      select: ['id', 'createdAt', 'updatedAt', 'title', 'description'],
+      relations: { discounts: true },
     });
   }
 
   async findOne(id: number): Promise<ProductCategory> {
-    const category = await this.categoryRepository.findOne({ where: { id } });
+    const category = await this.categoryRepository.findOne({
+      where: { id },
+      relations: { discounts: true },
+    });
 
     if (!category) throw new NotFoundException();
 

@@ -1,6 +1,7 @@
 import { S3_BASE_PATH } from '@common/constant/constants';
 import { Auth } from '@common/decorators/auth.decorator';
 import { PaginationOptions } from '@common/decorators/pagination-options.decorator';
+import { Public } from '@common/decorators/public.decorator';
 import { Role } from '@common/decorators/role.decorator';
 import { RoleEnum } from '@common/enum/role.enum';
 import { imageFileFilter } from '@common/validators/files/image-validator';
@@ -47,14 +48,14 @@ export class ProductController {
       { field: 'attributes.design', example: '$eq:classic' },
     ],
   })
-  @Role([RoleEnum.USER])
+  @Public()
   @ApiOkResponse({ type: PaginateProductResponse })
   async findAll(@Paginate() query: PaginateQuery) {
     return await this.productService.findAll(query);
   }
 
   @Get(':id')
-  @Role([RoleEnum.USER])
+  @Public()
   async findOne(@Param('id', ParseIntPipe) id: number) {
     return await this.productService.findOne(id);
   }
