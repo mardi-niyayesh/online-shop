@@ -1,3 +1,4 @@
+import { Basket } from '@app/basket/entities/basket.entity';
 import { Rate } from '@app/product/entities/rate.entity';
 import { BaseAppEntity } from '@common/entity/base.entity';
 import { Column, Entity, OneToMany } from 'typeorm';
@@ -22,4 +23,7 @@ export class User extends BaseAppEntity {
 
   @OneToMany(() => Rate, (rate) => rate.user)
   rates: Rate[];
+
+  @OneToMany(() => Basket, (basket) => basket.user)
+  baskets: Basket[];
 }
