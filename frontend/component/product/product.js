@@ -1,5 +1,7 @@
  import { baseUrl } from '/frontend/apibase.js';
- export{fetchCreatBasket}
+ 
+
+ document.addEventListener("DOMContentLoaded", ()=>{
 const  $=document
 
 const productsContainer= $.querySelector(".product ")
@@ -182,7 +184,12 @@ function createCategoryButtons(categories) {
 //    </div>
 //     <button class="btngobasket">go to basket</button>
 //   `;
-
+  
+//   // go to basket
+//   const goToBasketBtn = messageComponent.querySelector('.btngobasket');
+//   goToBasketBtn.addEventListener('click', () => {
+//   window.location.href = '/frontend/component/basket/basket.html';
+//   });
    
 // // update total price
 // function updateTotal() {
@@ -242,12 +249,15 @@ return getToken !== null && getToken !== '';
 }
 
 //add to cart product
-async function fetchCreatBasket(productId,quantity,price,getToken){
+ export async function fetchCreatBasket(productId,quantity,price,getToken){
   try{
    const response=await fetch(`http://localhost:3000/api/baskets`,{
 
    method:'POST',
-
+  headers:{
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${getToken}`
+   },
    body:JSON.stringify({
       items: [
       {
@@ -256,11 +266,8 @@ async function fetchCreatBasket(productId,quantity,price,getToken){
     price:Number(price),
     }
   ]
-   }),
-   headers:{
-    'Content-Type': 'application/json',
-    'Authorization': `Bearer ${getToken}`
-   }
+   })
+ 
   });
   const data=await response.json();
   console.log('یک محصول به سبد خرید اضافه شد',data);
@@ -269,7 +276,8 @@ async function fetchCreatBasket(productId,quantity,price,getToken){
     console.log('متاسیم پروداکت شما به سبد خرید اضافه نشد ',err);
     
   }
- };
+ }
+  
 
 //remove product to car
 async function fetchremoveBasket(productId){
@@ -289,15 +297,6 @@ async function fetchremoveBasket(productId){
     
   }
  };
-
- //function=> fetchCategories +createCategoryButtons
-async function fetchCategoriesPluscreateCategoryButtons(page, limit) {
-  const categories = await fetchCategories(page, limit);
-  createCategoryButtons(categories);
-}
-
- //Call category function
-fetchCategoriesPluscreateCategoryButtons(1,10);
 
 
 //////////////////////////////////////////////////
@@ -478,3 +477,15 @@ function showAddedToBasketMessage(prod, imageUrl, discountedPrice, hasDiscount, 
     messageComponent.remove();
   });
 }
+//////////////////////////////
+
+ //function=> fetchCategories +createCategoryButtons
+async function fetchCategoriesPluscreateCategoryButtons(page, limit) {
+  const categories = await fetchCategories(page, limit);
+  createCategoryButtons(categories);
+}
+
+ //Call category function
+fetchCategoriesPluscreateCategoryButtons(1,10);
+
+ })
