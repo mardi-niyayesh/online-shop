@@ -1,4 +1,4 @@
-import {fetchCreatBasket} from '/frontend/component/product/product.js';
+import {fetchCreatBasket} from '../product/product.js';
 
 async function fetchAllProducBasket(){
     try{
@@ -26,7 +26,9 @@ async function fetchAllProducBasket(){
       <button class="btn-plus">+</button>
     `;
 
-    containerbasket.appendChild(itemElement);
+    containerbasket.append(itemElement);
+    console.log(containerbasket);
+    
 
     const btnPlus = itemElement.querySelector('.btn-plus');
     const btnMinu = itemElement.querySelector('.btn-minus');
@@ -34,7 +36,7 @@ async function fetchAllProducBasket(){
 
     //btn plus icon
     btnPlus.addEventListener('click', async () => {
-    let quantity = parseInt(inpQuantity.value) || 0;
+    let quantity = parseInt(inpQuantity.value);
     quantity++;
     inpQuantity.value = quantity;
     updateTotal();
@@ -57,8 +59,10 @@ async function fetchAllProducBasket(){
     });
 
     }catch(err){
-
+   console.log('متاسفیم نمی توانیم لیست محصولات سبد خرید رو نشان دهیم ',err);
+   
     }
    
 }
 
+fetchAllProducBasket()
