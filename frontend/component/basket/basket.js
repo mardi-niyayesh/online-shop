@@ -1,8 +1,12 @@
-import {fetchCreatBasket} from '../product/product.js';
+
+import { baseUrl } from '/frontend/apibase.js';
+
+const getToken=localStorage.getItem("Token")
+const basketContainer = document.getElementById('basket-container');
 
 async function fetchAllProducBasket(){
     try{
-    const response=await fetch(`http://localhost:3000/api/baskets/userBasket`,{
+    const response=await fetch(`${baseUrl}/baskets/userBasket`,{
     method:'GET',
     headers:{
     'Content-Type': 'application/json',
@@ -10,52 +14,33 @@ async function fetchAllProducBasket(){
     }
     })
 
-    const data=await response.json()
-
-    const containerbasket=document.querySelector('cont-basket')
+    const result=await response.json()
+    const items=result.items
+    console.log(items);
+    
+    const containerbasket=document.createElement('div')
+    containerbasket.className='cont-basket'
     containerbasket.innerHTML=''
 
-    data.forEach((item) => {
+    items.forEach((item) => {
     const itemElement = document.createElement('div');
     itemElement.className='basket-item';
-    itemElement.innerHTML = `
-      <span>${item.productName}</span>
-      <span>${item.totalPrice}</span>
-      <button class="btn-minus">-</button>
-      <input type="number" value="${item.quantity}" />
-      <button class="btn-plus">+</button>
+     itemElement.innerHTML=
+    `
+      <span class='name-probaskt'> name product:${item.product.name}</span>
+      <span> total price :${item.price}</span>
+      <label>تعداد: <input class="quntity-inpbasket" type="number" value="${item.quantity}"></label>
+      <button class='BtnProduct'>dalet product</button>
     `;
-
+ 
     containerbasket.append(itemElement);
-    console.log(containerbasket);
-    
-
-    const btnPlus = itemElement.querySelector('.btn-plus');
-    const btnMinu = itemElement.querySelector('.btn-minus');
-    const inpQuantity = itemElement.querySelector('input');
-
-    //btn plus icon
-    btnPlus.addEventListener('click', async () => {
-    let quantity = parseInt(inpQuantity.value);
-    quantity++;
-    inpQuantity.value = quantity;
-    updateTotal();
-    await fetchCreatBasket(prod.id, quantity, Number(discountedPrice), getToken);
-    });
-
-    //btn mint icon
-    btnMinu.addEventListener('click', async () => {
-    let quantity = parseInt(inpQuantity.value) || 1;
-    if (quantity <= 1) {
-      inpQuantity.value = 1;
-      return;
-    }
-    quantity--;
-    quantityInp.value = quantity;
-    updateTotal();
-    await fetchCreatBasket(prod.id, quantity, Number(discountedPrice), getToken);
-  });
-
+    basketContainer.append(containerbasket)
+  
+   const deletBtnProduct=itemElement.querySelector('.BtnProduct')
+   deletBtnProduct.addEventListener('click',()=>{
+    fetchDeleatProduct()
+     itemElement.remove();
+   })
     });
 
     }catch(err){
@@ -66,3 +51,23 @@ async function fetchAllProducBasket(){
 }
 
 fetchAllProducBasket()
+
+//remove product to basket
+async function fetchDeleatProduct(productId) {
+  try {
+    const response = await fetch(`${baseUrl}/baskets/${productId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${getToken}`,
+      }
+    });
+
+    const data = await response.json();
+    console.log('محصول حذف شد:', data);
+    return data;
+  } catch (error) {
+    console.error('خطا در حذف محصول:', error);
+  
+  }
+}
