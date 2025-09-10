@@ -27,9 +27,8 @@ boxNameproduct.innerHTML=getNameProduct
 }
 //show comment box
 boxwritecomment.addEventListener("click",(event)=>{
-  event.preventDefault()
+event.preventDefault()
 containerComment.style.display='block'
-
 
 })
 
@@ -41,13 +40,10 @@ iconClose.addEventListener("click",()=>{
   containerComment.style.display='none'
 })
  
-
-
-
 //event click for send product feedback
 boxSend.addEventListener("click", async(event)=>{
 containerComment.style.display='none'
- event.preventDefault()
+event.preventDefault()
 await fetchfeedback();
 await getfetchfeedback()
 })
