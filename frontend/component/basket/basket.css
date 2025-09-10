@@ -1,47 +1,14 @@
-/* style to baskett */
 
-.add-message{
-    border: 1px solid #DBDBDB;
-    padding: 2rem;
-    max-width: 450px;
-    margin: 0 auto;
-     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); 
-    display: none;
 
-    /* position: fixed;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1000;
-    left: 50%; */
+.quntity-inpbasket{
+    width: 25px;
 }
-.basket-produc{
-    display: flex;
-    gap: 1rem;
-}
-.icon-close{
-    margin-bottom: 1rem;
-}
-.btngobasket{
-    padding:0.3rem 1rem;
-    background-color:var(--color-484848);
-    border: none;
-    margin-top: 1rem;
-    width: 100%;
-    font-weight: bold;
-    border-radius: 5px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    -ms-border-radius: 5px;
-    -o-border-radius: 5px;
-    color: var(--color-f0f0f0);
-}
-.descripton{
-    color: var(--color-484848);
-    margin: 1rem 0;
-}
-.container-ico{
-    display: flex;
-     margin: 3rem 0;
-     gap: 0.5rem;
 
+.basket-item{
+margin-bottom: 1rem;
+ padding: 1rem;
+}
+
+.basket-container{
+   
 }
